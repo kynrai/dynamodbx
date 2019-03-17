@@ -5,6 +5,8 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/aws/aws-sdk-go/aws/credentials"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
@@ -80,8 +82,9 @@ func TestBatchWriteItem(t *testing.T) {
 			ddb := dynamodb.New(
 				session.Must(session.NewSession(
 					&aws.Config{
-						Region:   aws.String("eu-west-1"),
-						Endpoint: aws.String("http://localhost:8000"),
+						Region:      aws.String("eu-west-1"),
+						Endpoint:    aws.String("http://localhost:8000"),
+						Credentials: credentials.NewStaticCredentials("foo", "bar", "foobar"),
 					},
 				)),
 			)
